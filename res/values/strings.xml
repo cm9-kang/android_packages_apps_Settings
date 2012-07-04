@@ -96,6 +96,7 @@
     <string name="wifi_setting_sleep_policy_title">Keep Wi-Fi on during sleep</string>
     <!-- Generic error message when the sleep policy could not be set. -->
     <string name="wifi_setting_sleep_policy_error">There was a problem changing the setting</string>
+
     <!-- Action bar text message to manually add a wifi network [CHAR LIMIT=20]-->
     <string name="wifi_add_network">Add network</string>
     <!-- Header for the list of wifi networks-->
@@ -2767,6 +2768,14 @@
     <!-- Tethering help button - calls up a web view with general tethering info -->
     <string name="tethering_help_button_text">Help</string>
 
+    <!-- Wifi sleep timeout -->
+    <string name="wifi_idle_mn_title">Wi-Fi idle timeout</string>
+    <string name="wifi_idle_5mn">5 minutes</string>
+    <string name="wifi_idle_15mn">15 minutes (default)</string>
+    <string name="wifi_idle_30mn">30 minutes</string>
+    <string name="wifi_idle_1h">1 hour</string>
+    <string name="wifi_idle_3h">3 hours</string>
+
     <!-- Advanced tethering settings -->
     <string name="tethering_advanced_text">Advanced</string>
     <string name="tethering_lease_time_text">DHCP lease time</string>
@@ -3393,6 +3402,10 @@ found in the list of installed apps.</string>
     <string name="adb_over_network_summary">Enable TCP/IP debugging over network interfaces (Wi-Fi, USB networks). This setting is reset on reboot</string>
     <!-- Warning for Adb over Network -->
     <string name="adb_over_network_warning">WARNING: When ADB over network is enabled, your phone is open for intrusions on all connected networks, including GSM data network !\n\nOnly use this feature when you are connected on trusted networks.\n\nDo you really want to enable this function?</string>
+    <!-- Setting checkbox title for displaying USB debugging notification -->
+    <string name="adb_notify">USB debugging notify</string>
+    <!-- Setting checkbox summary for displaying USB debugging notification -->
+    <string name="adb_notify_summary">Display a notification when USB debugging is connected</string>
     <!-- Development settings: title for the field that shows the "App ID" development identifier
          for this device. [CHAR LIMIT=40] -->
     <string name="verifier_device_identifier">Development device ID</string>
@@ -4475,6 +4488,22 @@ found in the list of installed apps.</string>
     <string name="display_category_animation_options_title">Animation</string>
     <string name="display_electron_beam_animation_on_title">Screen-on animation</string>
     <string name="display_electron_beam_animation_off_title">Screen-off animation</string>
+
+    <!-- Display Settings : Render effect -->
+    <string name="pref_render_effect_title">Render effect</string>
+    <string name="pref_render_effect_summary">Change what colors are used to draw the screen</string>
+
+    <string name="pref_render_effect_none">No render effect</string>
+    <string name="pref_render_effect_night">Night mode (3700K)</string>
+    <string name="pref_render_effect_green">Terminal (green)</string>
+    <string name="pref_render_effect_blue">Blue</string>
+    <string name="pref_render_effect_amber">Amber</string>
+    <string name="pref_render_effect_salmon">Salmon</string>
+    <string name="pref_render_effect_fuscia">Fuscia</string>
+    <string name="pref_render_effect_calibrated">Calibrated (N1)</string>
+    <string name="pref_render_effect_calibrated_red">Calibrated (N1) Low Red</string>
+    <string name="pref_render_effect_calibrated_cool">Calibrated (N1) Cool</string>
+    <string name="pref_render_effect_red">Red</string>
 
     <!-- Wakeup options -->
     <string name="display_category_wakeup_options_title">Wakeup options</string>

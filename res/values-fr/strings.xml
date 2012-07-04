@@ -499,7 +499,7 @@
     <string name="wifi_notify_open_networks" msgid="3755768188029653293">"Notification de réseau"</string>
     <string name="wifi_notify_open_networks_summary" msgid="3038290727701553612">"Me notifier lorsqu\'un réseau ouvert est disponible"</string>
     <string name="wifi_enable_watchdog_service" msgid="3808826765041243874">"Éviter mauvaises connexions"</string>
-    <string name="wifi_enable_watchdog_service_summary" msgid="4227430628962787616">"Ne pas utiliser de réseau Wi-Fi, sauf en cas de connexion Internet de bonne qualité"</string>
+    <string name="wifi_enable_watchdog_service_summary">"Ne pas utiliser les réseaux Wi-Fi qui ne permettent pas la connexion à Internet"</string>
     <string name="wifi_setting_sleep_policy_title" msgid="9107237003911220057">"Wi-Fi actif en veille"</string>
     <string name="wifi_setting_sleep_policy_error" msgid="8174902072673071961">"Un problème est survenu lors de la modification des paramètres."</string>
     <string name="wifi_add_network" msgid="6234851776910938957">"Ajouter un réseau"</string>
@@ -658,6 +658,14 @@
     <string name="title_font_size" msgid="4405544325522105222">"Taille de la police"</string>
     <string name="dialog_title_font_size" msgid="2231507851258955038">"Taille de police"</string>
 
+    <!-- Wifi sleep timeout -->
+    <string name="wifi_idle_mn_title">Extinction du Wi-Fi</string>
+    <string name="wifi_idle_5mn">5 minutes</string>
+    <string name="wifi_idle_15mn">15 minutes (défaut)</string>
+    <string name="wifi_idle_30mn">30 minutes</string>
+    <string name="wifi_idle_1h">1 heure</string>
+    <string name="wifi_idle_3h">3 heures</string>
+
     <!-- Advanced tethering settings -->
     <string name="tethering_advanced_text">Paramètres avancés</string>
     <string name="tethering_lease_time_text">Expiration DHCP</string>
@@ -673,6 +681,7 @@
     <string name="volume_overlay_title">Contrôle du volume</string>
     <string name="volbtn_music_controls_title">Playlist par boutons volume</string>
     <string name="volbtn_music_controls_summary">Lorsque l\'écran est éteint, un appui long permet de changer le titre en cours</string>
+    <string name="volume_ring_only_description">Sonnerie du téléphone</string>
     <string name="link_volume_ringtones">Lier le volume des alertes à la sonnerie</string>
     <string name="link_volume_ringtones_toast">Vérifiez le volume de la sonnerie pour l\'appliquer à celui des alertes.</string>
     <string name="link_volume_mutes">Silence commun pour alertes et sonnerie</string>
@@ -696,9 +705,9 @@
     <string name="quiet_hours_dim">Désactiver les leds</string>
     <string name="quiet_hours_dim_on">Leds de notification désactivées</string>
     <string name="quiet_hours_dim_off">Leds de notification actives</string>
-    <string name="quiet_hours_haptic">Désactiver son des touches</string>
+    <string name="quiet_hours_haptic">Désactiver son des boutons</string>
     <string name="quiet_hours_haptic_on">Le son des boutons est désactivé</string>
-    <string name="quiet_hours_haptic_off">Le son des bouttons est actif</string>
+    <string name="quiet_hours_haptic_off">Le son des boutons est actif</string>
     <string name="quiet_hours_active_from">Actif de</string>
     <string name="quiet_hours_active_to">jusqu\'à</string>
 
@@ -768,6 +777,22 @@
     <string name="notification_light_use_custom">Couleurs spécifiques</string>
     <string name="notification_light_enabled">Actif</string>
     <string name="notification_light_disabled">Désactivé</string>
+
+    <!-- Display Settings : Render effect -->
+    <string name="pref_render_effect_title">Effet de rendu</string>
+    <string name="pref_render_effect_summary">Modifie le rendu des couleurs à l\'écran</string>
+
+    <string name="pref_render_effect_none">Pas d\'effet de rendu</string>
+    <string name="pref_render_effect_night">Mode nocture (3700K)</string>
+    <string name="pref_render_effect_green">Terminal (vert)</string>
+    <string name="pref_render_effect_blue">Bleu</string>
+    <string name="pref_render_effect_amber">Orange</string>
+    <string name="pref_render_effect_salmon">Saumon</string>
+    <string name="pref_render_effect_fuscia">Fuschia</string>
+    <string name="pref_render_effect_calibrated">Calibré (N1)</string>
+    <string name="pref_render_effect_calibrated_red">Calibré (N1) Rouge réduit</string>
+    <string name="pref_render_effect_calibrated_cool">Calibré (N1) Froid</string>
+    <string name="pref_render_effect_red">Rouge</string>
 
     <!-- Advanced, Device specific (DeviceParts) settings #CM -->
     <string name="advanced_settings_title">Options spécifiques</string>
@@ -1118,6 +1143,9 @@
     <string name="adb_over_network">ADB sur TCP/IP</string>
     <string name="adb_over_network_summary">"Activer le débogage sur toutes les interfaces (réseaux USB, Wi-Fi et Bluetooth)"</string>
     <string name="adb_over_network_warning">"ATTENTION: Lorsque cette fonction est activée, votre téléphone est ouvert aux intrusions sur toutes les interfaces, y compris via le réseau mobile !\n\nIl est fortement conseillé de désactiver le réseau mobile avant d\'activer cette fonction.\n\nContinuer ?"</string>
+    <string name="adb_notify">Notification débogage</string>
+    <string name="adb_notify_summary">Afficher une notification lorsque le débogage est actif</string>
+
     <!-- Setting checkbox title for root access -->
     <string name="root_access">Accès root</string>
     <string name="root_access_warning_title">Autoriser l\'accès root ?</string>
