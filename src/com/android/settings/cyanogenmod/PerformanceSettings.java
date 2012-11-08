@@ -68,11 +68,6 @@ public class PerformanceSettings extends SettingsPreferenceFragment
             mUseDitheringPref.setSummary(mUseDitheringPref.getEntry());
 			
             mUse16bppAlphaPref = (CheckBoxPreference) prefSet.findPreference(USE_16BPP_ALPHA_PREF);
-
-            String useDithering = SystemProperties.get(USE_DITHERING_PERSIST_PROP,
-                    USE_DITHERING_DEFAULT);
-            mUseDitheringPref.setChecked("1".equals(useDithering));
-
             String use16bppAlpha = SystemProperties.get(USE_16BPP_ALPHA_PROP, "0");
             mUse16bppAlphaPref.setChecked("1".equals(use16bppAlpha));
 
