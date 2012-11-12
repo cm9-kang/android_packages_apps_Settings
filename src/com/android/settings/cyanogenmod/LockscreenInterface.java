@@ -86,7 +86,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mVibratePref.setChecked(bVibrate);
         mVibratePref.setOnPreferenceChangeListener(this);
 
-		updateCustomBackgroundSummary();
+        updateCustomBackgroundSummary();
     }
 
     private void updateCustomBackgroundSummary() {
