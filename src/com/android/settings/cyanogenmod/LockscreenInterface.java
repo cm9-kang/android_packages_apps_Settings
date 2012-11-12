@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -51,7 +52,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     public static final String KEY_WEATHER_PREF = "lockscreen_weather";
     public static final String KEY_CALENDAR_PREF = "lockscreen_calendar";
     public static final String KEY_BACKGROUND_PREF = "lockscreen_background";
+    public static final String KEY_VIBRATE_PREF = "lockscreen_vibrate";
     private ListPreference mCustomBackground;
+    private CheckBoxPreference mVibratePref;
     private Preference mWeatherPref;
     private Preference mCalendarPref;
     private Activity mActivity;
@@ -75,7 +78,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mIsScreenLarge = Utils.isScreenLarge();
         wallpaperImage = new File(mActivity.getFilesDir()+"/lockwallpaper");
         wallpaperTemporary = new File(mActivity.getCacheDir()+"/lockwallpaper.tmp");
-        updateCustomBackgroundSummary();
+        mVibratePref = (CheckBoxPreference) findPreference(KEY_VIBRATE_PREF);
+        boolean bVibrate = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_VIBRATE_ENABLED, 1) == 1 ? true : false;
+        mVibratePref.setChecked(bVibrate);
+        mVibratePref.setOnPreferenceChangeListener(this);
+		updateCustomBackgroundSummary();
     }
 
     private void updateCustomBackgroundSummary() {
@@ -241,6 +249,15 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                 updateCustomBackgroundSummary();
                 break;
             }
+            return true;
+        } else if (preference == mVibratePref) {
+            boolean bValue = Boolean.valueOf((Boolean) objValue);
+            int value = 0;
+            if (bValue) {
+                value = 1;
+            }
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_VIBRATE_ENABLED, value);
             return true;
         }
         return false;
