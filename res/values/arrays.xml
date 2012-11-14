@@ -1283,6 +1283,7 @@
         <item>@string/wifi_idle_1h</item>
         <item>@string/wifi_idle_3h</item>
     </string-array>
+
     <string-array name="wifi_idle_mn_values" translatable="false">
         <item>1</item>
         <item>2</item>
@@ -1318,7 +1319,6 @@
         <item>86400</item>
     </string-array>
 
-    <!-- **** CYANOGENMOD EDITS END **** -->
     <string-array name="increasing_ring_interval_entries" translatable="false">
         <item>@string/increasing_ring_interval_eachring</item>
         <item>@string/increasing_ring_interval_half_second</item>
@@ -1344,13 +1344,13 @@
         <item>@string/dithering_color_banding</item>
         <item>@string/dithering_blur_effect</item>
     </string-array>
-	
+
     <string-array name="dithering_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
-	
+
     <!--- Volume key cursor control -->
     <string-array name="volume_key_cursor_control_entries">
         <item>@string/volume_key_cursor_control_off</item>
@@ -1363,6 +1363,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-	
+
 <!-- **** CYANOGENMOD EDITS END **** -->
 </resources>

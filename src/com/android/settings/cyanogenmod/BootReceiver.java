@@ -131,7 +131,7 @@ public class BootReceiver extends BroadcastReceiver {
             Log.d(TAG, "I/O scheduler settings restored.");
         }
     }
-	
+
     private void configureKSM(Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 
