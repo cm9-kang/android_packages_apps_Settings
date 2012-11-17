@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2011 The CyanogenMod Project
+ * Copyright (C) 2012 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,132 +16,123 @@
 
 package com.android.settings.cyanogenmod;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.text.Spannable;
+import android.widget.EditText;
 
 import com.android.settings.R;
-import com.android.settings.Utils;
+import com.android.settings.SettingsPreferenceFragment;
 
-public class NavBar extends Fragment {
+public class NavBar extends SettingsPreferenceFragment implements OnPreferenceChangeListener{
 
-    private boolean mEditMode;
-    private ViewGroup mContainer;
-    private Activity mActivity;
-    private final static Intent mIntent = new Intent("android.intent.action.NAVBAR_EDIT");
-    private static final int MENU_RESET = Menu.FIRST;
-    private static final int MENU_EDIT = Menu.FIRST + 1;
+	CheckBoxPreference mEnableNavigationBar;
+    	ListPreference mNavigationBarHeight;
+    	ListPreference mNavigationBarWidth;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.nav_bar, container, false);
-        setHasOptionsMenu(true);
-        mContainer = container;
-        mActivity = getActivity();
-        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        return view;
-    }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.navbar_settings);
+        PreferenceScreen prefs = getPreferenceScreen();
 
-    /**
-     * Toggles navbar edit mode
-     * @param on True to enter edit mode / false to exit
-     * @param save True to save changes / false to discard them
-     */
-    private void toggleEditMode(boolean on, boolean save) {
-        mIntent.putExtra("edit", on);
-        mIntent.putExtra("save", save);
-        mActivity.sendBroadcast(mIntent);
-    }
+	boolean hasNavBarByDefault = getActivity().getBaseContext().getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar);
+        mEnableNavigationBar = (CheckBoxPreference) findPreference("nav_bar_enabled");
+        mEnableNavigationBar.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1);
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // If running on a phone, remove padding around container
-        if (!Utils.isScreenLarge()) {
-            mContainer.setPadding(0, 0, 0, 0);
+        // don't allow devices that must use a navigation bar to disable it
+        if (hasNavBarByDefault) {
+            prefs.removePreference(mEnableNavigationBar);
         }
-    }
+        mNavigationBarHeight = (ListPreference) findPreference("navigation_bar_height");
+        mNavigationBarHeight.setOnPreferenceChangeListener(this);
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0, MENU_RESET, 0, R.string.profile_reset_title)
-        .setIcon(R.drawable.ic_settings_backup)
-        .setAlphabeticShortcut('r')
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
-                MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        menu.add(0, MENU_EDIT, 0, R.string.wifi_save)
-        .setIcon(R.drawable.stat_navbar_edit_off)
-        .setAlphabeticShortcut('s')
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
-                MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        mNavigationBarWidth = (ListPreference) findPreference("navigation_bar_width");
+        mNavigationBarWidth.setOnPreferenceChangeListener(this);
     }
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		if (preference == mNavigationBarWidth) {
+		    String newVal = (String) newValue;
+		    int dp = Integer.parseInt(newVal);
+		    int width = mapChosenDpToPixels(dp);
+		    Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_BAR_WIDTH,
+		            width);
+		    toggleBar();
+		    return true;
+		} else if (preference == mNavigationBarHeight) {
+		    String newVal = (String) newValue;
+		    int dp = Integer.parseInt(newVal);
+		    int height = mapChosenDpToPixels(dp);
+		    Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_BAR_HEIGHT,
+		            height);
+		    toggleBar();
+		    return true;
+		}
+		return false;
+	}
+	    public int mapChosenDpToPixels(int dp) {
+		switch (dp) {
+		    case 48:
+		        return getResources().getDimensionPixelSize(R.dimen.navigation_bar_48);
+		    case 42:
+		        return getResources().getDimensionPixelSize(R.dimen.navigation_bar_42);
+		    case 36:
+		        return getResources().getDimensionPixelSize(R.dimen.navigation_bar_36);
+		    case 30:
+		        return getResources().getDimensionPixelSize(R.dimen.navigation_bar_30);
+		    case 24:
+		        return getResources().getDimensionPixelSize(R.dimen.navigation_bar_24);
+		}
+		return -1;
+	    }
+	 @Override
+	    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
+	            Preference preference) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case MENU_RESET:
-            new AlertDialog.Builder(mActivity)
-            .setTitle(R.string.lockscreen_target_reset_title)
-            .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setMessage(R.string.navigation_bar_reset_message)
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    if (mEditMode) {
-                        toggleEditMode(false, false);
-                    }
-                    Settings.System.putString(getActivity().getContentResolver(),
-                            Settings.System.NAV_BUTTONS, null);
-                    toggleEditMode(true, false);
-                    toggleEditMode(false, false);
-                    mEditMode = false;
-                    Toast.makeText(mActivity, R.string.navigation_bar_reset_toast, Toast.LENGTH_LONG).show();
-                }
-            }).setNegativeButton(R.string.cancel, null)
-            .create().show();
-            return true;
-        case MENU_EDIT:
-            mEditMode = !mEditMode;
-            toggleEditMode(mEditMode, true);
-            if (!mEditMode) {
-                item.setIcon(R.drawable.stat_navbar_edit_off);
-                Toast.makeText(mActivity, R.string.navigation_bar_save_message, Toast.LENGTH_LONG).show();
-            } else {
-                item.setIcon(R.drawable.stat_navbar_edit_on);
-            }
-            return true;
-        default:
-            return false;
-        }
-    }
+		if (preference == mEnableNavigationBar) {
 
-    @Override
-    public void onPause() {
-        toggleEditMode(false, false);
-        super.onPause();
-    }
+		    Settings.System.putInt(getContentResolver(),
+		            Settings.System.NAVIGATION_BAR_SHOW,
+		            ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
 
-    @Override
-    public void onStop() {
-        toggleEditMode(false, false);
-        super.onStop();
-    }
+		    /*new AlertDialog.Builder(getActivity())
+		            .setTitle("Reboot required!")
+		            .setMessage("Please reboot to enable/disable the navigation bar properly!")
+		            .setNegativeButton("I'll reboot later", null)
+		            .setCancelable(false)
+		            .setPositiveButton("Reboot now!", new DialogInterface.OnClickListener() {
+		                @Override
+		                public void onClick(DialogInterface dialog, int which) {
+		                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		                    pm.reboot("New navbar");
+		                }
+		            })
+		            .create()
+		            .show();*/
 
-    @Override
-    public void onDestroy() {
-        toggleEditMode(false, false);
-        super.onDestroy();
-    }
+		    return true;
+		}
+		 return super.onPreferenceTreeClick(preferenceScreen, preference);
+
+	 }
+	public void toggleBar() {
+		boolean isBarOn = Settings.System.getInt(getContentResolver(),
+		        Settings.System.NAVIGATION_BAR_SHOW, 1) == 1;
+		Settings.System.putInt(getActivity().getBaseContext().getContentResolver(),
+		        Settings.System.NAVIGATION_BAR_SHOW, isBarOn ? 0 : 1);
+		Settings.System.putInt(getActivity().getBaseContext().getContentResolver(),
+		        Settings.System.NAVIGATION_BAR_SHOW, isBarOn ? 1 : 0);
+	}
+
 }
