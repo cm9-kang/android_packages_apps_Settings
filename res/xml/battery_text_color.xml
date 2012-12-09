@@ -10,18 +10,18 @@
     </CheckBoxPreference>
 
     <com.android.settings.util.colorpicker.ColorPickerPreference
-	android:key="battery_text_charge" 
-	android:title="@string/battery_text_charge" 
-	android:defaultValue="#00ff00" />
+        android:key="battery_text_charge" 
+        android:title="@string/battery_text_charge" 
+        android:defaultValue="#00ff00" />
 
     <com.android.settings.util.colorpicker.ColorPickerPreference
-	android:key="battery_text_normal" 
-	android:title="@string/battery_text_normal" 
-	android:defaultValue="#33b5e5" />
+        android:key="battery_text_normal" 
+        android:title="@string/battery_text_normal" 
+        android:defaultValue="#33b5e5" />
 
     <com.android.settings.util.colorpicker.ColorPickerPreference
-	android:key="battery_text_low" 
-	android:title="@string/battery_text_low" 
-	android:defaultValue="#ff0000" />
+        android:key="battery_text_low" 
+        android:title="@string/battery_text_low" 
+        android:defaultValue="#ff0000" />
 
 </PreferenceScreen>
