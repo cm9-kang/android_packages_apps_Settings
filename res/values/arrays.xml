@@ -16,6 +16,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Navbar height -->
     <string-array name="navigation_bar_width_entries">
         <item>42 dp (default)</item>
         <item>36 dp</item>
@@ -1380,6 +1381,16 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+
+    <string-array name="lockscreen_battery_status_entries" translatable="false">
+        <item>@string/lockscreen_battery_status_charging</item>
+        <item>@string/lockscreen_battery_status_alwayson</item>
+    </string-array>
+
+    <string-array name="lockscreen_battery_status_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
     </string-array>
 
     <!--- Volume key cursor control -->
